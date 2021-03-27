@@ -18,9 +18,9 @@ function writePassword() {
 function generatePassword() {
   
   var passwordLength = prompt("Please enter the number of characters you want for your password.  It must be between 8-128 characters.");
-  while(passwordLength <= 7 || passwordLength >= 129) {
-    alert("Password length must be between 8-50 characters Try again");
-    
+  if(passwordLength <= 7 || passwordLength >= 129) {
+    alert("Password length must be between 8-128 characters Try again");
+    return;
 
     } 
 
@@ -39,10 +39,6 @@ function generatePassword() {
   // this is a minimum count for numbers, lowerCases, upperCases & specialCharacters
   
   var options = countOptions(numbers, lowerCases, upperCases, special);
-  var minimumNumbers = "";
-  var minimumLowerCases = "";
-  var minimumUpperCases = "";
-  var minimumSpecialCharacters = "";
 
 
   var functionArray = {
@@ -65,13 +61,29 @@ function generatePassword() {
 };
 
 
+  var original = passwordLength;
+  // passwordLength ++ options;
+  var randomPasswordGenerated = "";
+  var looping = false;
+  while (passwordLength > 1) {
+
+    var minimumNumbers = "";
+    var minimumLowerCases = "";
+    var minimumUpperCases = "";
+    var minimumSpecialCharacters = "";
   
-  passwordLength -= options;   
+    
   
+
+      console.log(passwordLength);
+       
+  
+      
   if (numbers === true) {
-    for (let index = 0; index < Math.floor(Math.random() * passwordLength); index++) {
+    for (let index = 0; index < Math.floor(Math.random() * passwordLength + 1); index++) {
       minimumNumbers += functionArray.getNumbers();
       passwordLength--;
+      
       
     }
 
@@ -79,7 +91,7 @@ function generatePassword() {
   }
 
   if (lowerCases === true) {
-    for (let index = 0; index < Math.floor(Math.random() * passwordLength); index++) {
+    for (let index = 0; index < Math.floor(Math.random() * passwordLength + 1); index++) {
       minimumLowerCases += functionArray.getLowerCases();
       passwordLength--;
       
@@ -89,7 +101,7 @@ function generatePassword() {
   }
 
   if (upperCases === true) {
-    for (let index = 0; index < Math.floor(Math.random() * passwordLength); index++) {
+    for (let index = 0; index < Math.floor(Math.random() * passwordLength + 1); index++) {
       minimumUpperCases += functionArray.getUpperCases();
       passwordLength--;}
     
@@ -97,12 +109,13 @@ function generatePassword() {
   }
 
   if (special === true) {
-    for (let index = 0; index < Math.floor(Math.random() * passwordLength); index++) {
+    for (let index = 0; index < Math.floor(Math.random() * passwordLength + 1); index++) {
       minimumSpecialCharacters += functionArray.getSpecialCharacters();
       passwordLength--;}
-    
+  
 
   }
+
 
 
   // Empty minimums for numbers, lowerCases, upperCases & specialCharacters
@@ -151,7 +164,7 @@ function generatePassword() {
 
 
   // empty string variable for the for loop below
-  var randomPasswordGenerated = "";
+
 
   // loop getting random characters
 
@@ -164,7 +177,18 @@ function generatePassword() {
   randomPasswordGenerated += minimumLowerCases;
   randomPasswordGenerated += minimumUpperCases;
   randomPasswordGenerated += minimumSpecialCharacters;
+    // };
+}
 
+if (randomPasswordGenerated.length > original) {
+  randomPasswordGenerated = randomPasswordGenerated.substring(0,randomPasswordGenerated.length - 1);
+  
+}
+
+  else if (randomPasswordGenerated.length < original) {
+    randomPasswordGenerated += randomPasswordGenerated.charAt(0);
+    
+  }
 
   return randomPasswordGenerated;
 
