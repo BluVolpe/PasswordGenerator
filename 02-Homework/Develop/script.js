@@ -20,7 +20,7 @@ function generatePassword() {
   var passwordLength = prompt("Please enter the number of characters you want for your password.  It must be between 8-128 characters.");
   while(passwordLength <= 7 || passwordLength >= 129) {
     alert("Password length must be between 8-50 characters Try again");
-    return
+    
 
     } 
 
@@ -37,18 +37,14 @@ function generatePassword() {
   var special = confirm("Special characters?");
 
   // this is a minimum count for numbers, lowerCases, upperCases & specialCharacters
-  var minimumCount = 0;
-
-
-  // Empty minimums for numbers, lowerCases, upperCases & specialCharacters
-
+  
+  var options = countOptions(numbers, lowerCases, upperCases, special);
   var minimumNumbers = "";
   var minimumLowerCases = "";
   var minimumUpperCases = "";
   var minimumSpecialCharacters = "";
 
 
-  // Generator functions
   var functionArray = {
     getNumbers: function() {
       return String.fromCharCode(Math.floor(Math.random() * 10 + 48));
@@ -68,35 +64,84 @@ function generatePassword() {
 
 };
 
+
+  
+  passwordLength -= options;   
+  
+  if (numbers === true) {
+    for (let index = 0; index < Math.floor(Math.random() * passwordLength); index++) {
+      minimumNumbers += functionArray.getNumbers();
+      passwordLength--;
+      
+    }
+
+    
+  }
+
+  if (lowerCases === true) {
+    for (let index = 0; index < Math.floor(Math.random() * passwordLength); index++) {
+      minimumLowerCases += functionArray.getLowerCases();
+      passwordLength--;
+      
+    }
+    
+
+  }
+
+  if (upperCases === true) {
+    for (let index = 0; index < Math.floor(Math.random() * passwordLength); index++) {
+      minimumUpperCases += functionArray.getUpperCases();
+      passwordLength--;}
+    
+
+  }
+
+  if (special === true) {
+    for (let index = 0; index < Math.floor(Math.random() * passwordLength); index++) {
+      minimumSpecialCharacters += functionArray.getSpecialCharacters();
+      passwordLength--;}
+    
+
+  }
+
+
+  // Empty minimums for numbers, lowerCases, upperCases & specialCharacters
+
+
+
+
+  // Generator functions
+
+
   // Checks to make sure user selected ok for all and uses empty minimums from above
-if (special) {
-      functionArray = functionArray.concat(specialCharacters)
-    }
+// if (special) {
+//       functionArray = functionArray.concat(specialCharacters)
+//     }
 
-      if (special = true) {
-        functionArray === specialChar; 
-      }
-      if (numbers === true) {
-        functionArray = number; 
-      }
-      if (upperCases === true) {
-        functionArray = alphaUpper;
-      }
-      if (lowerCases === true) {
-        functionArray = alphaLower;
-      }
+//       if (special = true) {
+//         functionArray === specialChar; 
+//       }
+//       if (numbers === true) {
+//         functionArray = number; 
+//       }
+//       if (upperCases === true) {
+//         functionArray = alphaUpper;
+//       }
+//       if (lowerCases === true) {
+//         functionArray = alphaLower;
+//       }
 
-    if (numbers) {
-      functionArray = functionArray.concat(getNumbers)
-    }
+//     if (numbers) {
+//       functionArray = functionArray.concat(getNumbers)
+//     }
 
-    if (lowerCases) {
-      functionArray = functionArray.concat(getLowerCases)
-    }
+//     if (lowerCases) {
+//       functionArray = functionArray.concat(getLowerCases)
+//     }
 
-    if (upperCases) {
-      functionArray = functionArray.concat(getUpperCases)
-    }
+//     if (upperCases) {
+//       functionArray = functionArray.concat(getUpperCases)
+//     }
 
 
 
@@ -109,12 +154,10 @@ if (special) {
   var randomPasswordGenerated = "";
 
   // loop getting random characters
-  for (let i = 0; i < (parseInt(passwordLength) - minimumCount); i++) {
-    var randomNumberPicked = Math.floor(Math.random() * 9);
 
-    randomPasswordGenerated += randomNumberPicked;
 
-  }
+
+  
 
   // to make sure characters are added to the password
   randomPasswordGenerated += minimumNumbers;
@@ -125,4 +168,13 @@ if (special) {
 
   return randomPasswordGenerated;
 
-}
+  };
+  function countOptions(numbers, lowerCases, upperCases, special) {
+    var options = 0
+    if (numbers === true) options++;
+    if (lowerCases === true) options++;
+    if (upperCases === true) options++;
+    if (special === true) options++;
+      
+    return options;
+  };
