@@ -1,3 +1,4 @@
+
 # Password Generator
 
   
@@ -5,6 +6,8 @@
   
 ## Description
 A site that will randomly generate a password with any chosen length (under 122) with the option of special case, numeric case, upper case, and lower case letters.
+
+![Screenshot 2021-08-25 215710](https://user-images.githubusercontent.com/34254871/130887738-b49ec05c-3cc5-4f7e-91e3-f2fa71615a1e.png)
 
 
 ## Getting Started
